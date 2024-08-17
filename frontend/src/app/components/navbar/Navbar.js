@@ -21,7 +21,9 @@ export default function Navbar() {
             <link rel="stylesheet" href="" />
        </div>
 
+        <Link href={"login"} className=' hover:scale-105 transition-all'>
         <Button
+          
           title={"LogIn"}
           bgColor={"#E8792C"}
           padL={10}
@@ -29,7 +31,7 @@ export default function Navbar() {
           color={"white"}
           borderRadius={"30px"}
         // event={onLogin}
-        />
+        /></Link>
       </div>
     </div>
   )

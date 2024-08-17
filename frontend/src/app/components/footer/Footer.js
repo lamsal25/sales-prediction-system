@@ -19,6 +19,7 @@ export default function Footer() {
 
                     {/* Section 2: Navigation Links */}
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left space-y-2">
+                        <h1 class='text-2xl font-bold underline my-2'>Links</h1>
                         <div>Home</div>
                         <div>Forecast</div>
                         <div>About Us</div>
