@@ -15,7 +15,7 @@ export default function Navbar() {
 
         <div className='container flex gap-10  uppercase justify-center'>
          
-         <Link href={"about"} className=' hover:scale-105 transition-all'>Home</Link>
+         <Link href={"/"} className=' hover:scale-105 transition-all'>Home</Link>
          <Link href={"/"} className=' hover:scale-105 transition-all'>About Us</Link>
          <Link href={"/"} className=' hover:scale-105 transition-all'>Forecast</Link>
             <link rel="stylesheet" href="" />

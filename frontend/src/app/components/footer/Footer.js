@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
     return (
@@ -20,14 +21,15 @@ export default function Footer() {
                     {/* Section 2: Navigation Links */}
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left space-y-2">
                         <h1 class='text-2xl font-bold underline my-2'>Links</h1>
-                        <div>Home</div>
+                        <Link href="/">Home</Link>
                         <div>Forecast</div>
                         <div>About Us</div>
+                        
                     </div>
 
                     {/* Section 3: Login */}
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left">
-                        <div>Login</div>
+                        <Link href="login">Login</Link>
                     </div>
                 </div>
             </footer>
