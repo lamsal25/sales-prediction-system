@@ -23,7 +23,7 @@ export default function Footer() {
                         <h1 class='text-2xl font-bold underline my-2'>Links</h1>
                         <Link href="/">Home</Link>
                         <div>Forecast</div>
-                        <div>About Us</div>
+                        <Link href="/about-us">About Us</Link>
                         
                     </div>
 
