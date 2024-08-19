@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
             
             <footer className=" bg-black text-white py-6 flex flex-col md:flex-row justify-between items-center w-full ">
-                <div className="container w-5/6 m-auto flex flex-col md:flex-row justify-between items-center w-full max-w-screen-xl px-4 space-y-6 md:space-y-0">
+                <div className="container m-auto flex flex-col md:flex-row justify-between items-center w-full max-w-screen-xl px-4 space-y-6 md:space-y-0">
                     {/* Section 1: Logo and Contact Info */}
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left">
                         <div className="font-bold mb-4">

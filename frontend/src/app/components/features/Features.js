@@ -6,33 +6,35 @@ export default function Features() {
     return (
 
 
-            <div className='container w-5/6 m-auto mt-20 mb-10'>
-               <div className=' text-center text-4xl'>
-               <h2> Features </h2>
-               </div>
-                <div className=' justify-between flex'>
-                    <Card
+        <div className='container w-5/6 m-auto mt-20 mb-10'>
 
-                        title1={"Accurate"}
-                        title2={"Result"}
-                        imagesrc={"images/accurate.jpg"}
-                    />
+            <h1 className='text-4xl text-center font-bold text-[#1C2C4C]'>
+                <span className='border-b-4 border-indigo-500'>Features</span>
+            </h1>
+            <div className=' justify-between flex'>
+                <Card
+                className
 
-                    <Card
+                    title1={"Accurate"}
+                    title2={"Result"}
+                    imagesrc={"images/accuracy.png"}
+                />
 
-                        title1={"High"}
-                        title2={"performance"}
-                        imagesrc={"images/performance.jpg"}
-                    />
+                <Card
 
-                    <Card
+                    title1={"High"}
+                    title2={"Performance"}
+                    imagesrc={"images/speed.png"}
+                />
 
-                        title1={"Advance"}
-                        title2={"Analytics"}
-                        imagesrc={"images/advance_analytics.webp"}
-                    />
-                </div>
+                <Card
+
+                    title1={"Advance"}
+                    title2={"Analytics"}
+                    imagesrc={"images/advance.png"}
+                />
             </div>
-       
+        </div>
+
     )
 }
