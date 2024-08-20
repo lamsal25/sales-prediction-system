@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default function Navbar() {
   return (
     // Adjusted the color of the navbar background
-    <div className='  bg-[#1C2C4C] justify-between items-center'>
+    <div className='  bg-gradient-to-r from-[#1C2C4C] to-[#E8792C] justify-between items-center'>
       <div className='container w-5/6 flex justify-between  items-center m-auto text-white '>
 
       <Link href={"/"}> <img src="images/logo.png" alt="" height="100" width="100"  /></Link> 
@@ -25,7 +25,7 @@ export default function Navbar() {
         <Button
           
           title={"LogIn"}
-          bgColor={"#E8792C"}
+          bgColor={"#1C2C4C"}
           padL={10}
           padT={5}
           color={"white"}
