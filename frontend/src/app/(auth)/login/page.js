@@ -12,13 +12,10 @@ export default function Login() {
           <h1 className="text-center font-bold text-3xl text-[#E8792C] ml-3"><u>Login</u></h1>
         </div>
 
-        <form action="">
-          <input className="p-2 my-4 rounded w-[100%] focus:outline-blue-600" placeholder="Username" type="text" />
-          <input className="p-2 my-4 rounded w-[100%] focus:outline-blue-600" placeholder="Password" type="password" />
-          <button className="bg-[#E8792C] hover:bg-blue-500 text-white font-semibold p-2 mt-3 rounded w-[100%]">Login</button>
-          <p className="text-[#E8792C] py-7"> Don't have account?
-            <a className="font-semibold text-white hover:text-blue-500 transition-all duration-200" href=""> Sign up</a>
-          </p>
+        <form action="" method="POST">
+          <input className="p-2 my-4 rounded w-[100%] focus:outline-blue-600" placeholder="Username" type="text" name="username" />
+          <input className="p-2 my-4 rounded w-[100%] focus:outline-blue-600" placeholder="Password" type="password" name="password"/>
+          <button className="bg-blue-500 hover:bg-[#E8792C] my-7 text-white font-semibold p-2 mt-3 rounded-2xl w-[100%]">Login</button>
 
         </form>
 

@@ -7,7 +7,7 @@ import Image from 'next/image';
 export default function Hero() {
     return (
         <div>
-            <Carousel className="rounded-xl">
+            <Carousel>
                 <div className="relative h-[90vh] w-full">
                     <img
                         src="images/img1.jpg"
