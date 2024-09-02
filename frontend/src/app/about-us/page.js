@@ -1,6 +1,5 @@
-
 import React from 'react';
-import Navbar from "../components/navbar/Navbar";
+import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import Introduction from '../components/about/Introduction';
 import MissionStatement from '../components/about/MissionStatement';
@@ -12,7 +11,10 @@ import Contact from '../components/about/Contact';
 const AboutUs = () => {
   return (
     <>
-      <Navbar/>
+      {/* Navbar Component */}
+      <Navbar />
+
+      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4">
         <Introduction />
         <MissionStatement />
@@ -21,6 +23,8 @@ const AboutUs = () => {
         <Team />
         <Contact />
       </main>
+
+      {/* Footer Component */}
       <Footer />
     </>
   );
