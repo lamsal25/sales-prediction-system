@@ -22,6 +22,8 @@ export default function Navbar() {
        </div>
 
         <Link href={"login"} className=' hover:scale-105 transition-all'>
+
+        
         <Button
           
           title={"LogIn"}
