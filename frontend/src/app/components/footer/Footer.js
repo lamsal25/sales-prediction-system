@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <div>
             
-            <footer className="  bg-gradient-to-r mt-36 from-[#1C2C4C] to-[#a45d29] text-white py-6 flex flex-col md:flex-row justify-between items-center w-full ">
+            <footer className="  bg-gradient-to-r from-[#1C2C4C] to-[#a45d29] text-white py-6 flex flex-col md:flex-row justify-between items-center w-full ">
                 <div className="container m-auto flex flex-col md:flex-row justify-between items-center w-full max-w-screen-xl px-4 space-y-6 md:space-y-0">
                     {/* Section 1: Logo and Contact Info */}
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left">

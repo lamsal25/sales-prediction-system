@@ -11,21 +11,18 @@ import Contact from '../components/about/Contact';
 const AboutUs = () => {
   return (
     <>
-      {/* Navbar Component */}
-      <Navbar />
-
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4">
-        <Introduction />
-        <MissionStatement />
-        <VisionStatement />
-        <Values />
-        <Team />
-        <Contact />
-      </main>
-
-      {/* Footer Component */}
-      <Footer />
+      {/* Page Theme */}
+      <div className="min-h-screen bg-gradient-to-b from-[#1C2C4C] to-[#f2b383]">
+        {/* Main Content */}
+        <main className="max-w-6xl mx-auto px-4 py-8">
+          <Introduction />
+          <MissionStatement />
+          <VisionStatement />
+          <Values />
+          <Team />
+          <Contact />
+        </main>
+      </div>
     </>
   );
 };

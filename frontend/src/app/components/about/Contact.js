@@ -12,7 +12,7 @@ export default function Contact() {
                     </p>
                     <div className="mt-8">
                         <a href="mailto:contact@yourcompany.com" className="text-indigo-600 underline">
-                            contact@yourcompany.com
+                            contact@salesprediction.com
                         </a>
                     </div>
                 </div>
