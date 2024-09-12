@@ -25,6 +25,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Ignore virtual environment folder
+env/
+
 # local env files
 .env*.local
 
