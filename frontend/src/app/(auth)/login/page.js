@@ -1,18 +1,49 @@
-"use client"
+"use client";
 
 import { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';  // Import useRouter
 
 export default function Login() {
-  // Declare state variables for username and password
+  const router = useRouter();  // Initialize useRouter
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
- // Handler function for form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Here you can add the logic to handle login
-    console.log('Username:', username);
-    console.log('Password:', password);
+
+    if (!username || !password) {
+      setError('Both username and password are required');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/login/', {
+        username,
+        password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Login Successful:', response.data);
+
+      if (response.data.message === 'Login successful') {
+        setError('');  // Clear error message
+        router.push('/');  // Redirect to homepage
+      } else {
+        setError(response.data.error || 'An unknown error occurred');
+      }
+    } catch (err) {
+      if (err.response) {
+        console.log('Error Response:', err.response.data);
+        setError(err.response.data.error);
+      } else {
+        setError('An error occurred during login.');
+      }
+    }
   };
 
   return (
@@ -26,28 +57,28 @@ export default function Login() {
           <h1 className="text-center font-bold text-3xl text-[#E8792C] ml-3"><u>Login</u></h1>
         </div>
 
+        {/* Display login error message */}
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+
         <form onSubmit={handleSubmit}>
-          {/* Input field for username */}
           <input
             className="p-2 my-4 rounded w-[100%] focus:outline-blue-600"
             placeholder="Username"
             type="text"
             name="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} // Update username state
+            onChange={(e) => setUsername(e.target.value)}
           />
           
-          {/* Input field for password */}
           <input
             className="p-2 my-4 rounded w-[100%] focus:outline-blue-600"
             placeholder="Password"
             type="password"
             name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Update password state
+            onChange={(e) => setPassword(e.target.value)}
           />
           
-          {/* Submit button */}
           <button
             type="submit"
             className="bg-blue-500 hover:bg-[#E8792C] my-7 text-white font-semibold p-2 mt-3 rounded-2xl w-[100%]"

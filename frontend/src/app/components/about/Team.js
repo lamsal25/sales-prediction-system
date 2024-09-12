@@ -6,19 +6,19 @@ export default function Team() {
     const teamMembers = [
         {
             name: 'Roshan Lamsal',
-            role: 'Data Scientist',
+            role: 'Frontend Developer',
             image: '/images/Roshan.jpg',
             description: 'Roshan is a seasoned data scientist with over 10 years of experience in machine learning and predictive analytics. He has a deep understanding of statistical modeling and has been instrumental in developing our core prediction algorithms.',
         },
         {
             name: 'Suman Gautam',
-            role: 'Frontend Developer',
+            role: 'Backend Developer',
             image: '/images/Suman.jpg',
             description: 'Suman specializes in creating intuitive and responsive user interfaces. With a strong background in web development, he ensures that our platforms are both user-friendly and aesthetically pleasing, providing a seamless experience for our clients.',
         },
         {
             name: 'Kushal Poudel',
-            role: 'Backend Developer',
+            role: 'Data Scientist',
             image: '/images/Kushal.jpg',
             description: 'Kushal is an expert in backend development and system architecture. He is responsible for ensuring the scalability and security of our systems, enabling us to handle large volumes of data efficiently and securely.',
         },
