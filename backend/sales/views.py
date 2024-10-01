@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 import jwt
 import datetime
+from django.conf import settings
 
-SECRET_KEY = "roshanlamsal"
 
 @api_view(['POST'])
 def register(request):
@@ -44,7 +44,7 @@ def log_in(request):
         token = jwt.encode({
             'username': user.username,
             'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
-        }, SECRET_KEY)
+        },settings.SECRET_KEY_1)
 
         return Response({'token': token, 'message': 'Login successful'}, status=200)
     else:
