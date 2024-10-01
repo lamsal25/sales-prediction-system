@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';  // Import useRouter
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const router = useRouter();  // Initialize useRouter
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,18 +28,22 @@ export default function Login() {
         },
       });
 
-      console.log('Login Successful:', response.data);
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem('token', token); // Store token in localStorage
+        console.log('Login Successful:', response.data);
 
-      if (response.data.message === 'Login successful') {
-        setError('');  // Clear error message
-        router.push('/');  // Redirect to homepage
+        // Redirect the user to the homepage
+        setError('');
+        router.push('/');
+     
       } else {
-        setError(response.data.error || 'An unknown error occurred');
+        setError('Login failed: No token received');
       }
     } catch (err) {
       if (err.response) {
         console.log('Error Response:', err.response.data);
-        setError(err.response.data.error);
+        setError(err.response.data.message || 'Login failed. Please try again.');
       } else {
         setError('An error occurred during login.');
       }
@@ -57,7 +61,6 @@ export default function Login() {
           <h1 className="text-center font-bold text-3xl text-[#E8792C] ml-3"><u>Login</u></h1>
         </div>
 
-        {/* Display login error message */}
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
         <form onSubmit={handleSubmit}>
