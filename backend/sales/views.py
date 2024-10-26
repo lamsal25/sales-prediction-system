@@ -5,15 +5,7 @@ from django.contrib.auth import authenticate, login
 import jwt
 import datetime
 from django.conf import settings
-
-
 import os
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.preprocessing import LabelEncoder
-from io import BytesIO
-import base64
 
 
 @api_view(['POST'])
