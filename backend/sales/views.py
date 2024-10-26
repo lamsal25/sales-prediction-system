@@ -60,55 +60,34 @@ def log_in(request):
         return Response({'message': 'Invalid credentials!'}, status=400)
 
 
+import joblib
+import json
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
-@api_view(['GET'])
-def forecast_sales(request):
-    # File paths for train and test data
-    csv_train_file_path = os.path.join(os.path.dirname(__file__), 'data', 'train.csv')
-    csv_test_file_path = os.path.join(os.path.dirname(__file__), 'data', 'test.csv')
+# Load the model (ensure this path points to your saved model)
+model_path =  os.path.join(os.path.dirname(__file__), 'data', 'bigmart_model.joblib')
+model = joblib.load(model_path)
+manual_mean = 5000  # Replace with the mean used in your model training
 
-    # Load the datasets
-    train_df = pd.read_csv(csv_train_file_path)
-    test_df = pd.read_csv(csv_test_file_path)
+@api_view(['POST'])
+def predict_sales(request):
+    data = json.loads(request.body)
 
-    # Handle categorical variables with Label Encoding
-    label_encoder = LabelEncoder()
-    train_df['Item_Type'] = label_encoder.fit_transform(train_df['Item_Type'])
-    train_df['Outlet_Identifier'] = label_encoder.fit_transform(train_df['Outlet_Identifier'])
-    train_df['Outlet_Location_Type'] = label_encoder.fit_transform(train_df['Outlet_Location_Type'])
-    train_df['Outlet_Type'] = label_encoder.fit_transform(train_df['Outlet_Type'])
-    test_df['Item_Type'] = label_encoder.fit_transform(test_df['Item_Type'])
-    test_df['Outlet_Identifier'] = label_encoder.fit_transform(test_df['Outlet_Identifier'])
-    test_df['Outlet_Location_Type'] = label_encoder.fit_transform(test_df['Outlet_Location_Type'])
-    test_df['Outlet_Type'] = label_encoder.fit_transform(test_df['Outlet_Type'])
+    # Extract data fields from the request
+    item_type = data['Item_Type']
+    item_mrp = data['Item_MRP']
+    outlet_identifier = data['Outlet_Identifier']
+    outlet_location_type = data['Outlet_Location_Type']
+    outlet_type = data['Outlet_Type']
+    item_fat_content = data['Item_Fat_Content']
+    outlet_size = data['Outlet_Size']
 
-    # Prepare data
-    X_train = train_df[['Item_Type', 'Item_MRP', 'Outlet_Identifier', 'Outlet_Location_Type', 'Outlet_Type']]
-    y_train = train_df['Item_Outlet_Sales']
-    X_test = test_df[['Item_Type', 'Item_MRP', 'Outlet_Identifier', 'Outlet_Location_Type', 'Outlet_Type']]
-
-    # Train the model
-    model = GradientBoostingRegressor(n_estimators=1000, learning_rate=0.001, max_depth=6)
-    model.fit(X_train, y_train)
-
-    # Make predictions
-    y_train_pred = model.predict(X_train)
-
-    # Generate the plot
-    plt.figure(figsize=(10, 6))
-    plt.plot(y_train.values[:100], label='Actual Sales (Train)')
-    plt.plot(y_train_pred[:100], label='Predicted Sales (Train)', linestyle='--')
-    plt.legend()
-    plt.title('Actual vs Predicted Sales (Train)')
-    plt.xlabel('Index')
-    plt.ylabel('Sales')
-
-    # Save the plot to a PNG file
-    image_buffer = BytesIO()
-    plt.savefig(image_buffer, format='png')
-    image_buffer.seek(0)
+    # Prepare data for the model
+    input_data = [[item_type, item_mrp, outlet_identifier, outlet_location_type, outlet_type, item_fat_content, outlet_size]]
     
-    # Encode image in base64 for sending to frontend
-    image_base64 = base64.b64encode(image_buffer.read()).decode('utf-8')
-    
-    return Response({'image': image_base64})
+    # Predict sales and adjust with the manual mean
+    predicted_residual = model.predict(input_data)
+    predicted_sales = manual_mean + predicted_residual[0]
+
+    return JsonResponse({'predicted_sales': predicted_sales})
