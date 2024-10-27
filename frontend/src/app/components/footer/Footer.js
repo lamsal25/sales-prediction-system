@@ -34,7 +34,7 @@ export default function Footer() {
                             <Image src="/images/logo.png" alt="Logo" height={100} width={100} />
 
                         </div>
-                        <div className="mb-2">www.salesforecast.com</div>
+                        <div className="mb-2">www.salesprediction.com</div>
                         <div>01-4455997</div>
                     </div>
 
@@ -42,7 +42,7 @@ export default function Footer() {
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left space-y-2">
                         <h1 className='text-2xl font-bold underline my-2'>Links</h1>
                         <Link href="/">Home</Link>
-                        <div>Forecast</div>
+                        <div>prediction</div>
                         <Link href="/about-us">About Us</Link>
 
                     </div>
@@ -91,7 +91,7 @@ export default function Footer() {
 
             {/* Copyright Section */}
             <div className="bg-gradient-to-r from-[#1C2C4C] to-[#a45d29] text-white py-2 text-center text-sm">
-                © 2024 Sales Forecast. All rights reserved.
+                © 2024 Sales prediction. All rights reserved.
             </div>
 
 

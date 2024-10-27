@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="space-x-10 uppercase">
           <Link href="/" className="hover:scale-105 transition-all">Home</Link>
           <Link href="/about-us" className="hover:scale-105 transition-all">About Us</Link>
-          <Link href="/forecast" className="hover:scale-105 transition-all">Forecast</Link>
+          <Link href="/prediction" className="hover:scale-105 transition-all">Prediction</Link>
         </div>
 
         {!loggedIn ? (

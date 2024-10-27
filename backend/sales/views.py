@@ -2,10 +2,15 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
+from django.conf import settings
+from django.http import JsonResponse
+import pandas as pd
+
 import jwt
 import datetime
-from django.conf import settings
 import os
+import joblib
+import json
 
 
 @api_view(['POST'])
@@ -52,15 +57,11 @@ def log_in(request):
         return Response({'message': 'Invalid credentials!'}, status=400)
 
 
-import joblib
-import json
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
-
 # Load the model (ensure this path points to your saved model)
-model_path =  os.path.join(os.path.dirname(__file__), 'data', 'bigmart_model.joblib')
-model = joblib.load(model_path)
-manual_mean = 5000  # Replace with the mean used in your model training
+model_path =  os.path.join(os.path.dirname(__file__), 'data', 'model.joblib')
+loaded_data = joblib.load(model_path)
+model = loaded_data['model']
+manual_mean = loaded_data['manual_mean']
 
 @api_view(['POST'])
 def predict_sales(request):
@@ -76,8 +77,9 @@ def predict_sales(request):
     outlet_size = data['Outlet_Size']
 
     # Prepare data for the model
-    input_data = [[item_type, item_mrp, outlet_identifier, outlet_location_type, outlet_type, item_fat_content, outlet_size]]
-    
+    input_data = pd.DataFrame([[item_type, item_mrp, outlet_identifier, outlet_location_type, outlet_type, item_fat_content, outlet_size]], 
+                               columns=['Item_Type', 'Item_MRP', 'Outlet_Identifier', 'Outlet_Location_Type', 'Outlet_Type', 'Item_Fat_Content', 'Outlet_Size'])  
+      
     # Predict sales and adjust with the manual mean
     predicted_residual = model.predict(input_data)
     predicted_sales = manual_mean + predicted_residual[0]
