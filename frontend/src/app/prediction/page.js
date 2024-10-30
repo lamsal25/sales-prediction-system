@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function PredictionForm() {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         Item_Type: '',
         Item_MRP: '',
@@ -14,6 +16,14 @@ export default function PredictionForm() {
     });
 
     const [predictedSales, setPredictedSales] = useState(null);
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/login');
+        }
+    }, [router]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -80,4 +90,4 @@ export default function PredictionForm() {
             </div>
         </div>
     );
-}
+} 
