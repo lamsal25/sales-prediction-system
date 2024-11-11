@@ -42,7 +42,7 @@ export default function Footer() {
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left space-y-2">
                         <h1 className='text-2xl font-bold underline my-2'>Links</h1>
                         <Link href="/">Home</Link>
-                        <div>prediction</div>
+                        <Link href="/prediction">prediction</Link>
                         <Link href="/about-us">About Us</Link>
 
                     </div>
