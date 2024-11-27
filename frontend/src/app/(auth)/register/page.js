@@ -3,6 +3,8 @@
 import { useState } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation"; // import useRouter
+import Navbar from "@/app/components/navbar/Navbar";
+import Footer from "@/app/components/footer/Footer";
 
 export default function Register() {
   const router = useRouter(); // initialize useRouter
@@ -51,6 +53,8 @@ export default function Register() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 to-orange-500">
       <div className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-md w-full">
         <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">Register</h2>
@@ -163,5 +167,7 @@ export default function Register() {
 
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/app/components/navbar/Navbar';
+import Footer from '@/app/components/footer/Footer';
 
 export default function Login() {
   const router = useRouter();
@@ -51,6 +53,8 @@ export default function Login() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-gradient-to-b from-[#1C2C4C] to-[#f2b383] flex justify-center items-center">
       <div className="card px-8 py-6 rounded-3xl bg-[#1C2C4C] w-72 mx-auto shadow-2xl shadow-black">
         <div className='flex py-10 justify-center'>
@@ -91,5 +95,7 @@ export default function Login() {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

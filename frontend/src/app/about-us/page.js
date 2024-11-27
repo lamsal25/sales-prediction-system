@@ -11,6 +11,7 @@ import Contact from '../components/about/Contact';
 const AboutUs = () => {
   return (
     <>
+    <Navbar/>
       {/* Page Theme */}
       <div className="min-h-screen bg-gradient-to-b from-[#1C2C4C] to-[#f2b383]">
         {/* Main Content */}
@@ -23,6 +24,7 @@ const AboutUs = () => {
           <Contact />
         </main>
       </div>
+      <Footer/>
     </>
   );
 };

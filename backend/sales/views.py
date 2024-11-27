@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.conf import settings
 from django.http import JsonResponse
 import pandas as pd
+import numpy as np
 
 import jwt
 import datetime
@@ -57,31 +58,102 @@ def log_in(request):
         return Response({'message': 'Invalid credentials!'}, status=400)
 
 
-# Load the model (ensure this path points to your saved model)
-model_path =  os.path.join(os.path.dirname(__file__), 'data', 'model.joblib')
+
+from django.http import JsonResponse
+import pandas as pd
+
+# Load your preprocessed dataset
+dataset_path = r'C:/Users/Nitro V16/OneDrive/Desktop/project/walmart_dataset/final_preprocessed_dataset.csv'
+data = pd.read_csv(dataset_path)
+
+def get_types(request):
+    types = data['type'].unique().tolist()
+    print('this is the type *********',types)
+    return JsonResponse({'types': types})
+    
+def get_stores(request, type):
+    print(f"Incoming type: {type}")
+    type = int(type)
+    # filtered_data = data[data['type'] == type]
+    # print(f"Filtered data: {filtered_data}")
+    stores = data[data['type'] == type]['store'].unique().tolist()
+    print('This is the store *********', stores)
+    return JsonResponse({'stores': stores})
+
+
+def get_departments(request, store):
+    print(f"Incoming store: {store}")
+    store = int(store) 
+    departments = data[data['store'] == store]['dept'].unique().tolist()
+    print('This is the departments *********', departments)
+    return JsonResponse({'departments': departments})
+
+
+def get_size(request, type, store, department):
+    # Filter the data based on the provided type, store, and department
+    type = int(type)
+    store = int(store)
+    department = int(department)
+    filtered_data = data[
+        (data['type'] == type) &
+        (data['store'] == store) &
+        (data['dept'] == department)
+    ]
+
+    # Extract unique size values
+    size = filtered_data['size'].unique()
+    print('The size is : ++++',size)
+    # Handle the case where size is empty
+    if size > 0:  # Check if size has at least one element
+        return JsonResponse({'size': int(size[0])})  # Assuming you want the first value
+    else:
+        return JsonResponse({'error': 'No size found for the given parameters'}, status=404)
+
+
+
+def get_week(request):
+    # Get the current date and calculate the ISO week number
+    current_date = datetime.datetime.now()
+    week_number = current_date.isocalendar()[1]  # ISO week number (1-52/53)
+    return JsonResponse({'week': week_number+1})
+
+
+
+###  JOblib  ###
+
+# Load the model (ensure this path points to your uploaded model)
+model_path = os.path.join(os.path.dirname(__file__), 'data', 'walmart_model.joblib')
 loaded_data = joblib.load(model_path)
-model = loaded_data['model']
-manual_mean = loaded_data['manual_mean']
+
 
 @api_view(['POST'])
 def predict_sales(request):
-    data = json.loads(request.body)
+    try:
+        # Extract input data from the POST request
+        data = request.data
+        type_ = data.get("type")
+        store = data.get("store")
+        department = data.get("department")
+        size = data.get("size")
+        cpi = data.get("cpi")
+        week = data.get("week")
 
-    # Extract data fields from the request
-    item_type = data['Item_Type']
-    item_mrp = data['Item_MRP']
-    outlet_identifier = data['Outlet_Identifier']
-    outlet_location_type = data['Outlet_Location_Type']
-    outlet_type = data['Outlet_Type']
-    item_fat_content = data['Item_Fat_Content']
-    outlet_size = data['Outlet_Size']
+        
+        # Preprocess input data (convert to the required format)
+        # Assuming all features need to be converted to floats
+        try:
+            input_data = np.array([[float(type_), float(store), float(department), 
+                                    float(size), float(cpi), float(week)]])
+          
+        except ValueError as ve:
+            return JsonResponse({"error": "Invalid input format. Ensure numeric fields are properly formatted."}, status=400)
 
-    # Prepare data for the model
-    input_data = pd.DataFrame([[item_type, item_mrp, outlet_identifier, outlet_location_type, outlet_type, item_fat_content, outlet_size]], 
-                               columns=['Item_Type', 'Item_MRP', 'Outlet_Identifier', 'Outlet_Location_Type', 'Outlet_Type', 'Item_Fat_Content', 'Outlet_Size'])  
-      
-    # Predict sales and adjust with the manual mean
-    predicted_residual = model.predict(input_data)
-    predicted_sales = manual_mean + predicted_residual[0]
+        # Make the prediction
+        prediction = loaded_data.predict(input_data)
 
-    return JsonResponse({'predicted_sales': predicted_sales})
+        # Return the prediction
+        return JsonResponse({"predicted_sales": f"{float(prediction[0]):.2f}"}, status=200)
+
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
