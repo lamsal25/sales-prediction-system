@@ -63,7 +63,7 @@ from django.http import JsonResponse
 import pandas as pd
 
 # Load your preprocessed dataset
-dataset_path = r'C:/Users/Nitro V16/OneDrive/Desktop/project/walmart_dataset/final_preprocessed_dataset.csv'
+dataset_path =  os.path.join(os.path.dirname(__file__), 'data', 'final_preprocessed_dataset.csv')
 data = pd.read_csv(dataset_path)
 
 def get_types(request):
