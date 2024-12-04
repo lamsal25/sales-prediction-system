@@ -120,68 +120,69 @@ export default function SalesForm() {
                     Sales Prediction Form
                 </h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label htmlFor="type" className="block text-sm font-medium text-gray-700">
-                            Type
-                        </label>
-                        <select
-                            id="type"
-                            value={selectedType}
-                            onChange={(e) => setSelectedType(e.target.value)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        >
-                            <option value="">Select Type</option>
-                            {types.map((type) => (
-                                <option key={type} value={type}>
-                                    {type}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                <div className="mb-4">
+    <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+        Type of store
+    </label>
+    <select
+        id="type"
+        value={selectedType}
+        onChange={(e) => setSelectedType(e.target.value)}
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+    >
+        <option value="">Select Type</option>
+        {types.map((type) => (
+            <option key={type.id} value={type.id}>
+                {type.name}
+            </option>
+        ))}
+    </select>
+</div>
 
-                    <div className="mb-4">
-                        <label htmlFor="store" className="block text-sm font-medium text-gray-700">
-                            Store
-                        </label>
-                        <select
-                            id="store"
-                            value={selectedStore}
-                            onChange={(e) => setSelectedStore(e.target.value)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            disabled={!selectedType}
-                        >
-                            <option value="">Select Store</option>
-                            {stores.map((store) => (
-                                <option key={store} value={store}>
-                                    {store}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+<div className="mb-4">
+    <label htmlFor="store" className="block text-sm font-medium text-gray-700">
+        Store Location
+    </label>
+    <select
+        id="store"
+        value={selectedStore}
+        onChange={(e) => setSelectedStore(e.target.value)}
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        disabled={!selectedType}
+    >
+        <option value="">Select Store</option>
+        {stores.map((store) => (
+            <option key={store.id} value={store.id}>
+                {store.name}
+            </option>
+        ))}
+    </select>
+</div>
 
-                    <div className="mb-4">
-                        <label htmlFor="department" className="block text-sm font-medium text-gray-700">
-                            Department
-                        </label>
-                        <select
-                            id="department"
-                            value={selectedDepartment}
-                            onChange={(e) => setSelectedDepartment(e.target.value)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            disabled={!selectedStore}
-                        >
-                            <option value="">Select Department</option>
-                            {departments.map((department) => (
-                                <option key={department} value={department}>
-                                    {department}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+
+<div className="mb-4">
+    <label htmlFor="department" className="block text-sm font-medium text-gray-700">
+        Department Name
+    </label>
+    <select
+        id="department"
+        value={selectedDepartment}
+        onChange={(e) => setSelectedDepartment(e.target.value)}
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        disabled={!selectedStore}
+    >
+        <option value="">Select Department</option>
+        {departments.map((department) => (
+            <option key={department.id} value={department.id}>
+                {department.name}
+            </option>
+        ))}
+    </select>
+</div>
 
                     <div className="mb-4">
                         <label htmlFor="size" className="block text-sm font-medium text-gray-700">
-                            Size
+                            Size(meter square)
                         </label>
                         <input
                             type="text"
@@ -205,7 +206,7 @@ export default function SalesForm() {
                         />
                     </div>
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="week" className="block text-sm font-medium text-gray-700">
                             Week
                         </label>
@@ -216,7 +217,7 @@ export default function SalesForm() {
                             readOnly
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100"
                         />
-                    </div>
+                    </div> */}
 
                     <button
                         type="submit"
@@ -229,7 +230,7 @@ export default function SalesForm() {
                 {prediction && (
                     <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg">
                         <p className="text-center font-medium">
-                            <strong>Predicted Sales:</strong> {prediction}
+                            <strong>Predicted Sales:</strong> $ {prediction}
                         </p>
                     </div>
                 )}

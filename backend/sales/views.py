@@ -51,7 +51,7 @@ def log_in(request):
         token = jwt.encode({
             'username': user.username,
             'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
-        },settings.SECRET_KEY_1)
+        },settings.SECRET_KEY_1) 
 
         return Response({'token': token, 'message': 'Login successful'}, status=200)
     else:
@@ -61,32 +61,49 @@ def log_in(request):
 
 from django.http import JsonResponse
 import pandas as pd
+from .dictionary import TYPE_MAPPING, STORE_MAPPING, DEPT_MAPPING  # Import the dictionary
 
 # Load your preprocessed dataset
-dataset_path =  os.path.join(os.path.dirname(__file__), 'data', 'final_preprocessed_dataset.csv')
+dataset_path = os.path.join(os.path.dirname(__file__), 'data', 'final_preprocessed_dataset.csv')
 data = pd.read_csv(dataset_path)
 
 def get_types(request):
-    types = data['type'].unique().tolist()
-    print('this is the type *********',types)
+    """
+    Send TYPE_MAPPING dictionary to the frontend.
+    """
+    # Convert dictionary into a list of key-value pairs
+    types = [{'id': key, 'name': value} for key, value in TYPE_MAPPING.items()]
     return JsonResponse({'types': types})
-    
+  
+
 def get_stores(request, type):
     print(f"Incoming type: {type}")
     type = int(type)
-    # filtered_data = data[data['type'] == type]
-    # print(f"Filtered data: {filtered_data}")
+    # Filtered data based on the type
     stores = data[data['type'] == type]['store'].unique().tolist()
-    print('This is the store *********', stores)
-    return JsonResponse({'stores': stores})
+
+    # Map store IDs to names using STORE_MAPPING
+    mapped_stores = [{"id": store, "name": STORE_MAPPING.get(store, f"Store {store}")} for store in stores]
+
+    print('This is the store *********', mapped_stores)
+    return JsonResponse({'stores': mapped_stores})
+
+
 
 
 def get_departments(request, store):
     print(f"Incoming store: {store}")
-    store = int(store) 
+    store = int(store)
+
+    # Filter departments based on the selected store
     departments = data[data['store'] == store]['dept'].unique().tolist()
-    print('This is the departments *********', departments)
-    return JsonResponse({'departments': departments})
+
+    # Map department IDs to names
+    mapped_departments = [{"id": dept, "name": DEPT_MAPPING.get(dept, f"Department {dept}")} for dept in departments]
+
+    print('This is the departments *********', mapped_departments)
+    return JsonResponse({'departments': mapped_departments})
+
 
 
 def get_size(request, type, store, department):
