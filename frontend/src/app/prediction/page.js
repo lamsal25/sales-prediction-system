@@ -91,13 +91,13 @@ export default function SalesForm() {
         e.preventDefault();
 
         // Gather form data for prediction
-        const formData = { 
-            type: selectedType, 
-            store: selectedStore, 
-            department: selectedDepartment, 
-            size, 
-            cpi, 
-            week 
+        const formData = {
+            type: selectedType,
+            store: selectedStore,
+            department: selectedDepartment,
+            size,
+            cpi,
+            week
         };
 
         try {
@@ -111,102 +111,102 @@ export default function SalesForm() {
 
     return (
         <>
-        <Navbar/>
-        <div
-            className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 p-6"
-        >
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-                <h1 className="text-2xl font-bold text-center text-indigo-600 mb-6">
-                    Sales Prediction Form
-                </h1>
-                <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-    <label htmlFor="type" className="block text-sm font-medium text-gray-700">
-        Type of store
-    </label>
-    <select
-        id="type"
-        value={selectedType}
-        onChange={(e) => setSelectedType(e.target.value)}
-        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    >
-        <option value="">Select Type</option>
-        {types.map((type) => (
-            <option key={type.id} value={type.id}>
-                {type.name}
-            </option>
-        ))}
-    </select>
-</div>
+            <Navbar />
+            <div
+                className="flex items-center justify-center min-h-screen  bg-gradient-to-b from-[#1C2C4C] to-[#f2b383] p-6"
+            >
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <h1 className="text-2xl font-bold text-center text-indigo-600 mb-10 mt-6">
+                        Sales Prediction Form
+                    </h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+                                Type of store
+                            </label>
+                            <select
+                                id="type"
+                                value={selectedType}
+                                onChange={(e) => setSelectedType(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            >
+                                <option value="">Select Type</option>
+                                {types.map((type) => (
+                                    <option key={type.id} value={type.id}>
+                                        {type.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-<div className="mb-4">
-    <label htmlFor="store" className="block text-sm font-medium text-gray-700">
-        Store Location
-    </label>
-    <select
-        id="store"
-        value={selectedStore}
-        onChange={(e) => setSelectedStore(e.target.value)}
-        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        disabled={!selectedType}
-    >
-        <option value="">Select Store</option>
-        {stores.map((store) => (
-            <option key={store.id} value={store.id}>
-                {store.name}
-            </option>
-        ))}
-    </select>
-</div>
+                        <div className="mb-4">
+                            <label htmlFor="store" className="block text-sm font-medium text-gray-700">
+                                Store Location
+                            </label>
+                            <select
+                                id="store"
+                                value={selectedStore}
+                                onChange={(e) => setSelectedStore(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                disabled={!selectedType}
+                            >
+                                <option value="">Select Store</option>
+                                {stores.map((store) => (
+                                    <option key={store.id} value={store.id}>
+                                        {store.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
 
-<div className="mb-4">
-    <label htmlFor="department" className="block text-sm font-medium text-gray-700">
-        Department Name
-    </label>
-    <select
-        id="department"
-        value={selectedDepartment}
-        onChange={(e) => setSelectedDepartment(e.target.value)}
-        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        disabled={!selectedStore}
-    >
-        <option value="">Select Department</option>
-        {departments.map((department) => (
-            <option key={department.id} value={department.id}>
-                {department.name}
-            </option>
-        ))}
-    </select>
-</div>
+                        <div className="mb-4">
+                            <label htmlFor="department" className="block text-sm font-medium text-gray-700">
+                                Department Name
+                            </label>
+                            <select
+                                id="department"
+                                value={selectedDepartment}
+                                onChange={(e) => setSelectedDepartment(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                disabled={!selectedStore}
+                            >
+                                <option value="">Select Department</option>
+                                {departments.map((department) => (
+                                    <option key={department.id} value={department.id}>
+                                        {department.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="size" className="block text-sm font-medium text-gray-700">
-                            Size(meter square)
-                        </label>
-                        <input
-                            type="text"
-                            id="size"
-                            value={size}
-                            readOnly
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100"
-                        />
-                    </div>
+                        <div className="mb-4">
+                            <label htmlFor="size" className="block text-sm font-medium text-gray-700">
+                                Size(meter square)
+                            </label>
+                            <input
+                                type="text"
+                                id="size"
+                                value={size}
+                                readOnly
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100"
+                            />
+                        </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="cpi" className="block text-sm font-medium text-gray-700">
-                            CPI
-                        </label>
-                        <input
-                            type="number"
-                            id="cpi"
-                            value={cpi}
-                            onChange={(e) => setCpi(e.target.value)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
-                    </div>
+                        {/* <div className="mb-4">
+                            <label htmlFor="cpi" className="block text-sm font-medium text-gray-700">
+                                CPI
+                            </label>
+                            <input
+                                type="number"
+                                id="cpi"
+                                value={100} // Set CPI to a constant 100
+                                disabled // Prevent user from changing the value
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            />
+                        </div> */}
 
-                    {/* <div className="mb-4">
+                        {/* <div className="mb-4">
                         <label htmlFor="week" className="block text-sm font-medium text-gray-700">
                             Week
                         </label>
@@ -219,24 +219,24 @@ export default function SalesForm() {
                         />
                     </div> */}
 
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
-                    >
-                        Predict Sales
-                    </button>
-                </form>
+                        <button
+                            type="submit"
+                            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
+                        >
+                            Predict Sales
+                        </button>
+                    </form>
 
-                {prediction && (
-                    <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg">
-                        <p className="text-center font-medium">
-                            <strong>Predicted Sales:</strong> $ {prediction}
-                        </p>
-                    </div>
-                )}
+                    {prediction && (
+                        <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg">
+                            <p className="text-center font-medium">
+                                <strong>Predicted Sales:</strong> $ {prediction}
+                            </p>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-        <Footer/>
+            <Footer />
         </>
     );
 }
