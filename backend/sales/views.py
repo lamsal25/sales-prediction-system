@@ -44,18 +44,14 @@ def log_in(request):
     user = authenticate(username=username, password=password)
 
     if not User.objects.filter(username=username).exists():
-        return Response({'message': 'User doesn\'t exist!'})
+        return JsonResponse({'message': 'User doesn\'t exist!'})
 
     if user is not None:
         login(request, user)
-        token = jwt.encode({
-            'username': user.username,
-            'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
-        },settings.SECRET_KEY_1) 
-
-        return Response({'token': token, 'message': 'Login successful'}, status=200)
-    else:
-        return Response({'message': 'Invalid credentials!'}, status=400)
+        sessionid = request.session.session_key
+        print("session ID: ",sessionid)
+        return JsonResponse({'message': 'Login Successful'})
+        
 
 
 
@@ -152,9 +148,11 @@ def predict_sales(request):
         store = data.get("store")
         department = data.get("department")
         size = data.get("size")
-        cpi = data.get("cpi")
+        cpi = 100
         week = data.get("week")
-
+        print(f"the cpi is : ",cpi)
+        print(f"the week is : ",week)
+    
         
         # Preprocess input data (convert to the required format)
         # Assuming all features need to be converted to floats

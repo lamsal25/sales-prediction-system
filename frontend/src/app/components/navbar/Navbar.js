@@ -4,24 +4,35 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Button from '../button/Button';
+import getSession from '@/helpers/getSession';
+import axios from 'axios';
 
 export default function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(false);
   const router = useRouter();
+  const [token, setToken] = useState('')
 
-  useEffect(() => {
-    // Check if token exists in localStorage
-    const token = localStorage.getItem('token');
-    setLoggedIn(!!token); // Update loggedIn state based on token presence
-  }, [loggedIn]);
+  useEffect(()=>{
+    const getToken = async()=>{
+     const tokenValue = await getSession()
+     console.log("toke is : ", tokenValue)
+     setToken(tokenValue)
+    }
+    getToken()
+  },[token])
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    localStorage.removeItem('token'); // Remove token from localStorage
-    setLoggedIn(false); // Update loggedIn state
-    router.push("/"); // Redirect to login page after logout
+  const handleLogout = async() => {
+    const response = await axios.get('/api/logout')
+    console.log(response)
+    setToken('')
+    router.push('/')
   };
 
+  const handlePrediction = async()=>{
+    const tokenValue = await getSession()  
+    if(!tokenValue){
+        alert("Please Login for Prediction ")
+      }
+  }
   return (
     <div className="bg-gradient-to-r from-[#1C2C4C] to-[#E8792C]">
       <div className="container mx-auto flex justify-between items-center text-white py-4">
@@ -32,10 +43,10 @@ export default function Navbar() {
         <div className="space-x-10 uppercase">
           <Link href="/" className="hover:scale-105 transition-all">Home</Link>
           <Link href="/about-us" className="hover:scale-105 transition-all">About Us</Link>
-          <Link href="/prediction" className="hover:scale-105 transition-all">Prediction</Link>
+          <Link href="/prediction" className="hover:scale-105 transition-all" onClick={handlePrediction}>Prediction</Link>
         </div>
 
-        {!loggedIn ? (
+        {!token ? (
           <div className="flex space-x-6">
             <Link href="/login" className="hover:scale-105 transition-all">
             <Button

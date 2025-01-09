@@ -46,47 +46,16 @@ export default function Footer() {
                         <Link href="/about-us">About Us</Link>
 
                     </div>
-
+                    <div>
+                        
+                    </div>
                     {/* Section 3: Login
                     <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left">
                         <Link href="login">Login</Link>
                     </div> */}
 
-                    {!loggedIn ? (
-                        <div className="space-x-6">
-                            <Link href="/login" className="hover:scale-105 transition-all">
-                                <Button
-                                    title={"LogIn"}
-                                    bgColor={"#1C2C4C"}
-                                    padL={10}
-                                    padT={5}
-                                    color={"white"}
-                                    borderRadius={"10px"}
-                                />
-                            </Link>
-
-                            <Link href="/register" className="hover:scale-105 transition-all">
-                                <Button
-                                    title={"register"}
-                                    bgColor={"#1C2C4C"}
-                                    padL={10}
-                                    padT={5}
-                                    color={"white"}
-                                    borderRadius={"10px"}
-                                />
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className="space-x-6">
-                            <button
-                                className="bg-[#1C2C4C] text-white px-4 py-2 rounded-lg"
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </button>
-                        </div>
-                    )}
                 </div>
+               
             </footer>
 
             {/* Copyright Section */}
