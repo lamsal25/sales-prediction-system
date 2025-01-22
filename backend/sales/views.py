@@ -6,14 +6,12 @@ from django.conf import settings
 from django.http import JsonResponse
 import pandas as pd
 import numpy as np
-
-import jwt
 import datetime
 import os
 import joblib
-import json
+from .dictionary import TYPE_MAPPING, STORE_MAPPING, DEPT_MAPPING  # Import the dictionary
 
-
+# Register user
 @api_view(['POST'])
 def register(request):
     data = request.data
@@ -31,33 +29,35 @@ def register(request):
             return Response({'message': 'Email already exists!'})
         else:
             User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
-            return Response({'message': 'Registered successfully'})
+            return Response({'message': 'Registered successfully'},status=200 )
     else:
-        return Response({'message': 'Passwords do not match!'})
+        return Response({'message': 'Password does not match!'})
+    
 
+# Login user
 @api_view(['POST'])
 def log_in(request):
     data = request.data
     username = data.get('username')
     password = data.get('password')
 
+    # Check if the user exists
+    if not User.objects.filter(username=username).exists():
+        return JsonResponse({'message': 'User doesn\'t exist!'}, status=404)
+
+    # Authenticate user
     user = authenticate(username=username, password=password)
 
-    if not User.objects.filter(username=username).exists():
-        return JsonResponse({'message': 'User doesn\'t exist!'})
-
     if user is not None:
+        # Login the user and create a session
         login(request, user)
         sessionid = request.session.session_key
-        print("session ID: ",sessionid)
-        return JsonResponse({'message': 'Login Successful'})
-        
+        print("session ID: ", sessionid)
+        return JsonResponse({'message': 'Login Successful'}, status=200)
+    else:
+        # Handle incorrect credentials
+        return JsonResponse({'message': 'Invalid username or password'}, status=401)     
 
-
-
-from django.http import JsonResponse
-import pandas as pd
-from .dictionary import TYPE_MAPPING, STORE_MAPPING, DEPT_MAPPING  # Import the dictionary
 
 # Load your preprocessed dataset
 dataset_path = os.path.join(os.path.dirname(__file__), 'data', 'final_preprocessed_dataset.csv')

@@ -182,7 +182,7 @@ export default function SalesForm() {
 
                         <div className="mb-4">
                             <label htmlFor="size" className="block text-sm font-medium text-gray-700">
-                                Size(meter square)
+                                Size of store( in m<sup>2</sup>)
                             </label>
                             <input
                                 type="text"

@@ -1,7 +1,6 @@
 import React from 'react'
 import getSession from './helpers/getSession'
 import { NextResponse } from 'next/server'
-import { alert } from '@material-tailwind/react'
 
 export async function middleware(request) {
     const sessionId = await getSession()

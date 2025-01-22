@@ -26,12 +26,15 @@ export default function Login() {
         username,
         password,
       }, {
-        withCredentials: true,
+        withCredentials: true,  //to get the response from the server
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      router.push('/')
+   if(response.status == 200){
+    router.push('/')
+   }
+     
     } catch (err) {
       if (err.response) {
         console.log('Error Response:', err.response.data);
