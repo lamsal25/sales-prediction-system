@@ -6,21 +6,21 @@ export default function Team() {
     const teamMembers = [
         {
             name: 'Roshan Lamsal',
-            role: 'Frontend Developer',
+            role: 'Data Scientist',
             image: '/images/Roshan.jpg',
-            description: 'Roshan is a seasoned data scientist with over 10 years of experience in machine learning and predictive analytics. He has a deep understanding of statistical modeling and has been instrumental in developing our core prediction algorithms.',
+            description: 'Govinda is a data scientist with over 1 year of experience in machine learning. He has a deep understanding of statistical modeling and has been instrumental in developing our core prediction algorithms.',
+        },
+        {
+            name: 'Kushal Poudel',
+            role: 'Frontend Developer',
+            image: '/images/Kushal.jpg',
+            description: 'Kushal specializes in creating intuitive and responsive user interfaces. With a strong background in web development, he ensures that our platforms are both user-friendly and aesthetically pleasing, providing a seamless experience for our clients.',
         },
         {
             name: 'Suman Gautam',
             role: 'Backend Developer',
             image: '/images/Suman.jpg',
-            description: 'Suman specializes in creating intuitive and responsive user interfaces. With a strong background in web development, he ensures that our platforms are both user-friendly and aesthetically pleasing, providing a seamless experience for our clients.',
-        },
-        {
-            name: 'Kushal Poudel',
-            role: 'Data Scientist',
-            image: '/images/Kushal.jpg',
-            description: 'Kushal is an expert in backend development and system architecture. He is responsible for ensuring the scalability and security of our systems, enabling us to handle large volumes of data efficiently and securely.',
+            description: 'Suman is an expert in backend development and system architecture. He is responsible for ensuring the scalability and security of our systems, enabling us to handle large volumes of data efficiently and securely.',
         },
     ];
 

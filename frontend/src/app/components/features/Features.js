@@ -15,7 +15,7 @@ export default function Features() {
                 <Card
                 className
 
-                    title1={"Accurate"}
+                    title1={"Highly Accurate"}
                     title2={"Result"}
                     imagesrc={"images/accuracy.png"}
                 />
@@ -30,7 +30,7 @@ export default function Features() {
                 <Card
 
                     title1={"Advance"}
-                    title2={"Analytics"}
+                     title2={" Training Models"}
                     imagesrc={"images/advance.png"}
                 />
             </div>

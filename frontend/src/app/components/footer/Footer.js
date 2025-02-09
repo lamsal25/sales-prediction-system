@@ -49,9 +49,9 @@ export default function Footer() {
                     <div>
                         
                     </div>
-                    {/* Section 3: Login
-                    <div className="flex flex-col items-center md:items-start min-w-[150px] px-2 text-center md:text-left">
-                        <Link href="login">Login</Link>
+                    {/* Section 3: Login */}
+                    {/* <div >
+                         <p>Sales Prediction System Using<br/> Gradient Boosting  Algorithm,<br/> aims to implement a data-driven, <br/> machine learning-based solution <br/>that can predict sales for <br/> Walmart with higher accuracy.</p>
                     </div> */}
 
                 </div>

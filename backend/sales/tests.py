@@ -29,3 +29,6 @@ class TestRegister(LiveServerTestCase):
         driver.find_element(By.XPATH,"//button[@type='submit']").click()
         time.sleep(5)
 
+
+
+#input("Press Enter to close the browser...")
