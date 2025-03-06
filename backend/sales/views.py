@@ -134,7 +134,7 @@ def get_week(request):
 
 ###  JOblib  ###
 
-# Load the model (ensure this path points to your uploaded model)
+# Load the model 
 model_path = os.path.join(os.path.dirname(__file__), 'data', 'walmart_model.joblib')
 loaded_data = joblib.load(model_path)
 
