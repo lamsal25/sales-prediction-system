@@ -22,13 +22,10 @@ class TestRegister(LiveServerTestCase):
         driver.get('http://localhost:3000/register')
         driver.find_element(By.ID,"first_name").send_keys('suman')
         driver.find_element(By.ID,"last_name").send_keys('gautam')
-        driver.find_element(By.ID,"email").send_keys('sumangautam@com')
+        driver.find_element(By.ID,"email").send_keys('sumangautam@gmail.com')
         driver.find_element(By.ID,"username").send_keys('suman12345')
         driver.find_element(By.ID,"password").send_keys('P@ssword')
         driver.find_element(By.ID,"password1").send_keys('P@ssword')
         driver.find_element(By.XPATH,"//button[@type='submit']").click()
         time.sleep(5)
 
-
-
-#input("Press Enter to close the browser...")
