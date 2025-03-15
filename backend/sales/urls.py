@@ -9,6 +9,6 @@ path('departments/<str:store>/', views.get_departments, name='get_departments'),
 path('size/<str:type>/<str:store>/<str:department>/', views.get_size, name='get_size'),
 path('week/', views.get_week, name='get_week'),
 path('predict/', views.predict_sales, name='predict_sales'),
-path('report/', views.report_view, name='report'),
+# path('report/', views.report_view, name='report'),
 ]
 

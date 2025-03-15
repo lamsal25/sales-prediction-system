@@ -16,8 +16,10 @@ export default function SalesForm() {
     const [size, setSize] = useState("");
     const [cpi, setCpi] = useState("");
     const [week, setWeek] = useState("");
+    const [selectedDate, setSelectedDate] = useState("");
 
-    const [prediction, setPrediction] = useState("");
+
+    const [prediction, setPrediction] = useState([]);
 
     // Fetch types on component mount
     useEffect(() => {
@@ -75,22 +77,25 @@ export default function SalesForm() {
     }, [selectedType, selectedStore, selectedDepartment]);
 
     // Fetch the current week number from the backend
-    useEffect(() => {
-        const fetchWeek = async () => {
-            try {
-                const response = await axios.get("http://localhost:8000/api/week/");
-                setWeek(response.data.week);
-            } catch (error) {
-                console.error("Error fetching week number:", error);
-            }
-        };
-        fetchWeek();
-    }, []);
+    const handleDateChange = (dateStr) => {
+        setSelectedDate(dateStr);
+
+        if (!dateStr) {
+            setWeek("");
+            return;
+        }
+
+        const date = new Date(dateStr);
+        const firstJan = new Date(date.getFullYear(), 0, 1);
+        const pastDaysOfYear = (date - firstJan) / 86400000;
+        const weekNumber = Math.ceil((pastDaysOfYear + firstJan.getDay() + 1) / 7);
+
+        setWeek(weekNumber);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Gather form data for prediction
         const formData = {
             type: selectedType,
             store: selectedStore,
@@ -100,13 +105,26 @@ export default function SalesForm() {
             week
         };
 
+
         try {
-            // API call to the prediction endpoint
             const response = await axios.post("http://localhost:8000/api/predict/", formData);
-            setPrediction(response.data.predicted_sales);
+
+            // Go into predicted_sales directly
+            const predictions = response.data.predicted_sales;
+
+            // Now turn the object into an array of [week, value]
+            const predictionsArray = Object.entries(predictions);
+
+            console.log("Predictions array:", predictionsArray); // should log [['Week_12', 2546.48], ...]
+
+            setPrediction(predictionsArray);  // Now you have the right array
         } catch (error) {
             console.error("Error predicting sales:", error);
         }
+
+
+
+        console.log("Predictions:", prediction);
     };
 
     return (
@@ -206,18 +224,19 @@ export default function SalesForm() {
                             />
                         </div> */}
 
-                        {/* <div className="mb-4">
-                        <label htmlFor="week" className="block text-sm font-medium text-gray-700">
-                            Week
-                        </label>
-                        <input
-                            type="number"
-                            id="week"
-                            value={week}
-                            readOnly
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100"
-                        />
-                    </div> */}
+                        <div className="mb-4">
+                            <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+                                Select a Date
+                            </label>
+                            <input
+                                type="date"
+                                id="date"
+                                value={selectedDate}
+                                onChange={(e) => handleDateChange(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100"
+                            />
+                        </div>
+
 
                         <button
                             type="submit"
@@ -227,13 +246,25 @@ export default function SalesForm() {
                         </button>
                     </form>
 
-                    {prediction && (
+
+
+                    {prediction && prediction.length > 0 ? (
                         <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg">
-                            <p className="text-center font-medium">
-                                <strong>Predicted Sales:</strong> $ {prediction}
-                            </p>
+                            <h2 className="text-lg font-semibold mb-4 text-center">Predicted Sales for Upcoming months:</h2>
+                            <ul className="space-y-2">
+                                {prediction.map(([week, value], index) => (
+                                    <li key={index} className="flex justify-between border-b pb-2">
+                                        <span className="font-medium">{week}:</span>
+                                        <span>${parseFloat(value).toFixed(2)}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+                    ) : (
+                        <p className="text-center text-gray-500">No predictions yet.</p>
                     )}
+
+
                 </div>
             </div>
             <Footer />

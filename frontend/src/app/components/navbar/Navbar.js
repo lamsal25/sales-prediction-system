@@ -73,10 +73,10 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="flex space-x-6">
-            {/* Reports Button - Opens in a New Tab */}
+            {/* Reports Button - Opens in a New Tab
             <Link href="/reports" className="hover:scale-105 transition-all">
             <Button title="Reports" bgColor="#1C2C4C" padL={10} padT={5} color="white" borderRadius="30px" />
-          </Link>
+          </Link> */}
 
             {/* Logout Button */}
             <button className="bg-[#1C2C4C] text-white px-4 py-2 rounded-lg" onClick={handleLogout}>
