@@ -11,27 +11,27 @@ export default function Navbar() {
   const router = useRouter();
   const [token, setToken] = useState('')
 
-  useEffect(()=>{
-    const getToken = async()=>{
-     const tokenValue = await getSession()
-     console.log("toke is : ", tokenValue)
-     setToken(tokenValue)
+  useEffect(() => {
+    const getToken = async () => {
+      const tokenValue = await getSession()
+      console.log("toke is : ", tokenValue)
+      setToken(tokenValue)
     }
     getToken()
-  },[token])
+  }, [token])
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     const response = await axios.get('/api/logout')
     console.log(response)
     setToken('')
     router.push('/')
   };
 
-  const handlePrediction = async()=>{
-    const tokenValue = await getSession()  
-    if(!tokenValue){
-        alert("Please Login for Prediction ")
-      }
+  const handlePrediction = async () => {
+    const tokenValue = await getSession()
+    if (!tokenValue) {
+      alert("Please Login for Prediction ")
+    }
   }
   return (
     <div className="bg-gradient-to-r from-[#1C2C4C] to-[#E8792C]">
@@ -43,13 +43,14 @@ export default function Navbar() {
         <div className="space-x-10 uppercase">
           <Link href="/" className="hover:scale-105 transition-all">Home</Link>
           <Link href="/about-us" className="hover:scale-105 transition-all">About Us</Link>
+
           <Link href="/prediction" className="hover:scale-105 transition-all" onClick={handlePrediction}>Prediction</Link>
         </div>
 
         {!token ? (
           <div className="flex space-x-6">
             <Link href="/login" className="hover:scale-105 transition-all">
-            <Button
+              <Button
                 title={"LogIn"}
                 bgColor={"#1C2C4C"}
                 padL={10}
@@ -58,9 +59,9 @@ export default function Navbar() {
                 borderRadius={"30px"}
               />
             </Link>
-           
+
             <Link href="/register" className="hover:scale-105 transition-all">
-            <Button
+              <Button
                 title={"register"}
                 bgColor={"#1C2C4C"}
                 padL={10}
@@ -71,12 +72,15 @@ export default function Navbar() {
             </Link>
           </div>
         ) : (
-          <div className="space-x-6">
-            <button
-              className="bg-[#1C2C4C] text-white px-4 py-2 rounded-lg"
-              onClick={handleLogout}
-            >
-           Logout
+          <div className="flex space-x-6">
+            {/* Reports Button - Opens in a New Tab */}
+            <Link href="/reports" className="hover:scale-105 transition-all">
+            <Button title="Reports" bgColor="#1C2C4C" padL={10} padT={5} color="white" borderRadius="30px" />
+          </Link>
+
+            {/* Logout Button */}
+            <button className="bg-[#1C2C4C] text-white px-4 py-2 rounded-lg" onClick={handleLogout}>
+              Logout
             </button>
           </div>
         )}

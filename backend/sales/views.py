@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -172,3 +173,8 @@ def predict_sales(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+# For the reports
+def report_view(request):
+    return render(request, "reports.html")
