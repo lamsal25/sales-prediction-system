@@ -7,7 +7,7 @@ export async function middleware(request) {
     const path = request.nextUrl.pathname
    
     const isPublicPath = path === '/login' || path === '/register'
-    const isPrivatePath =  path==='/prediction'
+    const isPrivatePath =  path==='/prediction' || path === '/reports'
 
     if(isPublicPath && sessionId){
         return NextResponse.redirect(new URL('/',request.url))

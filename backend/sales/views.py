@@ -1,6 +1,7 @@
 from collections import defaultdict
 import random
 from django.contrib.auth.models import User
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
@@ -200,3 +201,8 @@ def predict_sales(request):
     
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+# For the reports
+def report_view(request):
+    return render(request,"reports.html")
